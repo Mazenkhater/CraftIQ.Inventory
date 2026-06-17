@@ -1,7 +1,6 @@
 ﻿using CraftIQ.Inventory.Core.Features.OrderDetail.Queries.Models;
 using CraftIQ.Inventory.Core.IServicesBases;
 using CraftIQ.Inventory.Core.ResponseBases;
-using CraftIQ.Inventory.Core.ServicesInterfaces;
 using CraftIQ.Inventory.Core.Weappers;
 using CraftIQ.Inventory.Shared.Contracts.OrderDetails;
 using MediatR;

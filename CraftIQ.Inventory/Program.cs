@@ -4,6 +4,7 @@ using CraftIQ.Inventory.Infrastructure;
 using CraftIQ.Inventory.Infrastructure.Authentication;
 using CraftIQ.Inventory.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -50,7 +51,7 @@ namespace CraftIQ.Inventory
             builder.Services.AddInfrastructureDbContext(builder.Configuration.GetConnectionString("InventoryDBConnection"));
             builder.Services.AddInfrastructureRegistration();
             builder.Services.AddServicesRegistrations();
-            builder.Services.ADDCoreRegistrations();
+            builder.Services.ADDCoreRegistrations(builder.Configuration);
             builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
             builder.Services.AddAuthentication(options =>
             {

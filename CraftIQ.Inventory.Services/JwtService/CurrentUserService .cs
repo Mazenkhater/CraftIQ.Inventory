@@ -22,7 +22,7 @@ namespace CraftIQ.Inventory.Services.JwtService
                     .User?
                     .FindFirstValue(ClaimTypes.NameIdentifier); // أو "uid"
 
-                return Guid.TryParse(userId, out var id) ? id : null;
+                return Guid.TryParse(userId, out var id) ? id : Guid.Empty;
             }
         }
     }

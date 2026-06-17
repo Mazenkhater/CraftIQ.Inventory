@@ -15,11 +15,7 @@ namespace CraftIQ.Inventory.Services.JwtService
         private readonly IJwtTokenService _jwt;
         private readonly AppDBContext _context;
 
-        public AuthService(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
-            IJwtTokenService jwt,
-            AppDBContext context)
+        public AuthService(UserManager<AppUser> userManager,SignInManager<AppUser> signInManager,IJwtTokenService jwt,AppDBContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
