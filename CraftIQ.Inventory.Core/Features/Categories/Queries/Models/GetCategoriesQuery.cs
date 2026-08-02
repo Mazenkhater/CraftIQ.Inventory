@@ -1,11 +1,12 @@
-﻿using CraftIQ.Inventory.Core.ResponseBases;
+﻿using CraftIQ.Inventory.Core.Cache;
+using CraftIQ.Inventory.Core.ResponseBases;
 using CraftIQ.Inventory.Core.Weappers;
 using CraftIQ.Inventory.Shared.Contracts.Categories;
 using MediatR;
 
 namespace CraftIQ.Inventory.Core.Features.Categories.Queries.Models
 {
-    public class GetCategoriesQuery : IRequest<Response<PaginatedResult<List<CategoriesContract>>>>,ICacheableQuery
+    public class GetCategoriesQuery : IRequest<Response<PaginatedResult<List<CategoriesContract>>>>, ICacheable
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
@@ -13,5 +14,10 @@ namespace CraftIQ.Inventory.Core.Features.Categories.Queries.Models
         public string? OrderBy { get; set; }
         public string CacheKey =>$"Categories_{PageNumber}_{PageSize}_{Search}_{OrderBy}";
         public TimeSpan Expiration =>TimeSpan.FromMinutes(10);
+
+        public bool BypassCache => false;
+
+        // public int SlidingExpirationInMinutes => 10;
+
     }
 }

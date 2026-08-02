@@ -21,7 +21,7 @@ namespace CraftIQ.Inventory.Core.Features.Categories.Commands.Handlers
         public async Task<Response<CategoriesContract>> Handle(ADDCategoryCommand request, CancellationToken cancellationToken)
         {
             var result = await categoriesServices.Add(new CategoriesOperationsContract(request.Name,request.Description));
-            return Created(result);
+            return Created(result); //new Response<CategoriesContract> {Data= result, StatusCode = System.Net.HttpStatusCode.Created, Succeeded = true, Message = "Created" };
         }
 
         public async Task<Response<string>> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)

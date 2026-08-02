@@ -1,6 +1,5 @@
 ﻿using CraftIQ.Inventory.Core.Weappers;
 using CraftIQ.Inventory.Shared.Contracts.Transactions;
-using MediatR;
 
 namespace CraftIQ.Inventory.Core.IServicesBases
 {

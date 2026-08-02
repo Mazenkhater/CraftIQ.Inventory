@@ -1,15 +1,10 @@
 ﻿using CraftIQ.Inventory.Core.AuthModels;
 using CraftIQ.Inventory.Core.IRepositoryBases;
-using CraftIQ.Inventory.Infrastructure.Authentication;
 using CraftIQ.Inventory.Infrastructure.Data;
 using CraftIQ.Inventory.Infrastructure.InfrastructureBases;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using System;
 
 namespace CraftIQ.Inventory.Infrastructure
 {

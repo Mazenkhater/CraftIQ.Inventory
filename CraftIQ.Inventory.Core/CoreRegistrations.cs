@@ -1,5 +1,4 @@
-﻿using CraftIQ.Inventory.Core.CachingBehavior;
-using CraftIQ.Inventory.Core.ValidationBehavior;
+﻿using CraftIQ.Inventory.Core.ValidationBehavior;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +18,8 @@ namespace CraftIQ.Inventory.Core
 
             Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
-            Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CacheBehavior<,>));
+            Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+            Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             Services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = configuration.GetConnectionString("Redis");

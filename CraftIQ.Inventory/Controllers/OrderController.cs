@@ -15,28 +15,23 @@ namespace CraftIQ.Inventory.Controllers
         public async Task<IActionResult> GetOrderByID([FromRoute] int id)
         {
             var Result = await Mediator.Send(new GetOrderByIDQuery(id));
-            return Ok(Result);
+            return NewResult(Result);
         }
         [HttpGet(Routes.OrdersRoutes.GetAll)]
         public async Task<IActionResult> GetOrders([FromQuery]GetOrdersQuery query)
         {
             var results = await Mediator.Send(query);
 
-            return Ok(results);
+            return NewResult(results);
         }
         [HttpPost(Routes.OrdersRoutes.ADD)]
         public async Task<IActionResult> ADDOrder([FromBody] ADDOrderCommand command)
         {
-            if (ModelState.IsValid)
-            {
+
                 var result = await Mediator.Send(command);
                 string url = Url.Link("OrderDetailsRoute", new { id = result.Data.id });
-                return Created(url, result);
-            }
-            else
-            {
-                return BadRequest();
-            }
+                return NewResult(result, url);
+
         }
         [HttpPut(Routes.OrdersRoutes.Update)]
         public async Task<IActionResult> UpdateOrder([FromRoute] int id, [FromBody] UpdateOrderCommand command)

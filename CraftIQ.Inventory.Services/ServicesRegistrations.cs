@@ -29,7 +29,7 @@ namespace CraftIQ.Inventory.Services
             services.AddScoped<IAuthService, AuthService>();
             services.AddHttpContextAccessor();
             services.AddScoped<ICurrentUserService, CurrentUserService>();
-            services.AddScoped<IRedisCacheService,RedisCacheService>();
+            services.AddScoped<ICacheService,CacheService>();
         }
     }
 }

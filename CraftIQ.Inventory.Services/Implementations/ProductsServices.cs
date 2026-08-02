@@ -2,7 +2,6 @@
 using CraftIQ.Inventory.Core.IRepositoryBases;
 using CraftIQ.Inventory.Core.IServicesBases;
 using CraftIQ.Inventory.Core.Weappers;
-using CraftIQ.Inventory.Shared.Contracts.Categories;
 using CraftIQ.Inventory.Shared.Contracts.Products;
 using Microsoft.EntityFrameworkCore;
 

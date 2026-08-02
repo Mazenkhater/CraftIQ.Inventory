@@ -4,11 +4,11 @@ using System.Text.Json;
 
 namespace CraftIQ.Inventory.Services.Caching
 {
-    public class RedisCacheService : IRedisCacheService
+    public class CacheService : ICacheService
     {
         private readonly IDistributedCache _cache;
 
-        public RedisCacheService(IDistributedCache cache)
+        public CacheService(IDistributedCache cache)
         {
             _cache = cache;
         }
@@ -23,16 +23,15 @@ namespace CraftIQ.Inventory.Services.Caching
             return JsonSerializer.Deserialize<T>(data);
         }
 
-        public async Task SetAsync<T>(string key,T value,TimeSpan expiration)
+        public async Task SetAsync<T>(string key, T value, TimeSpan? expiry = null)
         {
             var options = new DistributedCacheEntryOptions
             {
-                AbsoluteExpirationRelativeToNow = expiration
+                AbsoluteExpirationRelativeToNow =
+                    expiry ?? TimeSpan.FromMinutes(10)
             };
 
-            var jsonData = JsonSerializer.Serialize(value);
-
-            await _cache.SetStringAsync(key,jsonData,options);
+            await _cache.SetStringAsync(key, JsonSerializer.Serialize(value), options);
         }
 
         public async Task RemoveAsync(string key)

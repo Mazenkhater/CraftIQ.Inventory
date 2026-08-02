@@ -1,19 +1,14 @@
 ﻿using CraftIQ.Inventory.Core.Features.Categories.Queries.Models;
 using CraftIQ.Inventory.Core.ICachingServices;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CraftIQ.Inventory.Core.CachingBehavior
 {
     public class CacheBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : ICacheableQuery
     {
-        private readonly IRedisCacheService _cache;
+        private readonly ICacheService _cache;
 
-        public CacheBehavior(IRedisCacheService cache)
+        public CacheBehavior(ICacheService cache)
         {
             _cache = cache;
         }

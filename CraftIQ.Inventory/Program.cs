@@ -4,9 +4,8 @@ using CraftIQ.Inventory.Infrastructure;
 using CraftIQ.Inventory.Infrastructure.Authentication;
 using CraftIQ.Inventory.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 namespace CraftIQ.Inventory
 {
@@ -78,6 +77,18 @@ namespace CraftIQ.Inventory
                             Encoding.UTF8.GetBytes(jwtSettings.Key))
                     };
                 });
+            Log.Logger = new LoggerConfiguration()
+                                 .WriteTo.Console()
+                                 .WriteTo.File("Logs/log-.txt",
+                                     rollingInterval: RollingInterval.Day)
+                                 .CreateLogger();
+
+            builder.Host.UseSerilog();
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";
+                options.InstanceName = "DeliveryManagementSystem";
+            });
 
             var app = builder.Build();
 
