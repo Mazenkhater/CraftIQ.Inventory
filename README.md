@@ -47,6 +47,15 @@ Orders:
 Transactions:
 - Transaction logging and tracking
 
+Performance :
+- Redis Distributed Caching
+- MediatR Caching Pipeline Behavior
+
+Logging :
+- Structured Logging using Serilog
+- Request & Exception Logging
+- File & Console Logging
+
 ------------------------------------------------------------
 
 TECH STACK
@@ -54,10 +63,13 @@ TECH STACK
 - ASP.NET Core Web API
 - Entity Framework Core
 - ASP.NET Core Identity
-- MediatR (CQRS Pattern)
-- JWT Authentication
+- MediatR (CQRS)
 - SQL Server
+- JWT Authentication
+- Redis Distributed Cache
+- Serilog
 - FluentValidation
+- Swagger / OpenAPI
 
 ------------------------------------------------------------
 
