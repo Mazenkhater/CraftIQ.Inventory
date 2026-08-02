@@ -1,79 +1,120 @@
-CraftIQ.Inventory
+# CraftIQ.Inventory
 
-Clean Architecture Inventory System built with ASP.NET Core, Identity, JWT, CQRS, MediatR, and Entity Framework Core.
+Clean Architecture Inventory System built with ASP.NET Core Web API, ASP.NET Identity, JWT Authentication, CQRS, MediatR, Redis Distributed Caching, Serilog, FluentValidation, and Entity Framework Core.
 
-This project demonstrates a real-world backend system designed using Clean Architecture principles with separation of concerns between Core, Application, Infrastructure, and API layers.
+This project demonstrates a real-world inventory management backend designed using Clean Architecture principles with clear separation of concerns between Core, Application, Infrastructure, and API layers.
 
-------------------------------------------------------------
+---
 
-PROJECT OVERVIEW
+# PROJECT OVERVIEW
 
-CraftIQ.Inventory is an inventory management system that handles products, categories, orders, inventory tracking, and transactions with secure authentication and authorization.
+CraftIQ.Inventory is a scalable inventory management system that handles products, categories, inventory tracking, orders, and transactions with secure authentication and authorization.
 
-The system is built to be scalable, maintainable, and testable using modern .NET practices.
+The application follows modern .NET development practices to provide maintainability, scalability, high performance, and clean code organization.
 
-------------------------------------------------------------
+---
 
-ARCHITECTURE
+# ARCHITECTURE
 
 The solution follows Clean Architecture:
 
-- API Layer → Controllers, Middleware, Swagger
-- Application Layer → CQRS (Commands & Queries), Handlers, DTOs
-- Core Layer → Entities, Interfaces, Contracts
-- Infrastructure Layer → EF Core, Identity, Repositories, JWT
+API Layer
+- Controllers
+- Middleware
+- Swagger
 
-Dependency rule: Inner layers do not depend on outer layers.
+Application Layer
+- CQRS (Commands & Queries)
+- MediatR Handlers
+- DTOs
+- Validation
+- Caching Pipeline
+- Logging Pipeline
 
-------------------------------------------------------------
+Core Layer
+- Entities
+- Interfaces
+- Contracts
+- Domain Models
 
-FEATURES
+Infrastructure Layer
+- Entity Framework Core
+- ASP.NET Identity
+- SQL Server
+- Redis
+- JWT Authentication
+- Repository Pattern
 
-Authentication:
-- User registration and login
-- JWT authentication
-- Refresh token support
-- Forgot and reset password
+Dependency Rule
 
-Inventory Management:
-- CRUD operations for products and categories
-- Inventory tracking
-- Search, filtering, and pagination
+Inner layers never depend on outer layers.
 
-Orders:
-- Order creation and details management
-- Relationship mapping between products and orders
+---
 
-Transactions:
-- Transaction logging and tracking
+# FEATURES
 
-Performance :
+## Authentication
+
+- User Registration
+- Secure Login
+- JWT Authentication
+- Refresh Token Support
+- Forgot Password
+- Reset Password
+
+## Inventory Management
+
+- Product CRUD Operations
+- Category CRUD Operations
+- Inventory Tracking
+- Search
+- Filtering
+- Pagination
+
+## Orders
+
+- Order Creation
+- Order Details Management
+- Product Availability Validation
+
+## Transactions
+
+- Transaction Logging
+- Inventory Movement Tracking
+
+## Performance
+
 - Redis Distributed Caching
 - MediatR Caching Pipeline Behavior
+- Automatic Cache Invalidation
+- Faster Read Operations
 
-Logging :
+## Logging
+
 - Structured Logging using Serilog
-- Request & Exception Logging
-- File & Console Logging
+- Console Logging
+- File Logging
+- Request Logging
+- Exception Logging
 
-------------------------------------------------------------
+---
 
-TECH STACK
+# TECH STACK
 
 - ASP.NET Core Web API
 - Entity Framework Core
 - ASP.NET Core Identity
-- MediatR (CQRS)
 - SQL Server
+- MediatR (CQRS)
 - JWT Authentication
 - Redis Distributed Cache
 - Serilog
 - FluentValidation
 - Swagger / OpenAPI
 
-------------------------------------------------------------
+---
 
-DATABASE ENTITIES
+# DATABASE ENTITIES
 
 - Product
 - Category
@@ -83,20 +124,42 @@ DATABASE ENTITIES
 - Transaction
 - RefreshToken
 
-------------------------------------------------------------
+---
 
-AUTHENTICATION FLOW
+# AUTHENTICATION FLOW
 
-1. User logs in using email and password
-2. System generates JWT access token
-3. Refresh token is stored in database
-4. Access token is used for API authorization
-5. Refresh token is used to regenerate new access token
+1. User logs in using email and password.
+2. The system validates user credentials.
+3. JWT Access Token is generated.
+4. Refresh Token is stored in the database.
+5. Access Token is used to authorize API requests.
+6. Refresh Token is used to generate a new Access Token when the current one expires.
 
-------------------------------------------------------------
+---
 
-HOW TO RUN PROJECT
+# CACHING FLOW
 
+1. Client sends a request.
+2. Cache Behavior checks Redis.
+3. If cached data exists, it is returned immediately.
+4. Otherwise, the request reaches the handler.
+5. The response is stored in Redis.
+6. Future requests are served directly from cache.
+
+---
+
+# LOGGING FLOW
+
+1. Every incoming request is logged.
+2. Execution time is tracked.
+3. Exceptions are logged automatically.
+4. Logs are written to both Console and Log Files using Serilog.
+
+---
+
+# HOW TO RUN PROJECT
+
+```bash
 git clone https://github.com/YOUR_USERNAME/CraftIQ.Inventory.git
 
 cd CraftIQ.Inventory
@@ -106,21 +169,73 @@ dotnet restore
 dotnet ef database update
 
 dotnet run
+```
 
-------------------------------------------------------------
+---
 
-CONFIGURATION
+# CONFIGURATION
 
-Connection String:
+Connection String
+
+```json
 "InventoryDBConnection": "your_sql_server_connection"
+```
 
-JWT Settings:
-Key, Issuer, Audience, DurationInMinutes
+JWT Settings
 
-------------------------------------------------------------
+```json
+Key
+Issuer
+Audience
+DurationInMinutes
+```
 
-AUTHOR
+Redis
 
-Mazen Osama
+Configure your Redis server inside:
 
-Backend Developer | ASP.NET Core | Clean Architecture Enthusiast
+```json
+ConnectionStrings:Redis
+```
+
+---
+
+# PROJECT STRUCTURE
+
+```
+API
+│
+├── Controllers
+├── Middleware
+├── Mapping
+
+Application
+│
+├── Commands
+├── Queries
+├── Handlers
+├── Validators
+├── Behaviors
+
+Core
+│
+├── Entities
+├── Interfaces
+├── Contracts
+
+Infrastructure
+│
+├── DbContext
+├── Identity
+├── Repositories
+├── Cache
+├── Logging
+```
+
+---
+
+# AUTHOR
+
+**Mazen Osama**
+
+Backend .NET Developer
